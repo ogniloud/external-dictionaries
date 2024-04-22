@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.madr.external-dictionaries</groupId>
-	<artifactId>external-dictionaries</artifactId>
+	<groupId>com.madr.external_dictionaries</groupId>
+	<artifactId>root</artifactId>
 	<version>${revision}</version>
-	<packaging>pom</packaging>
+    <packaging>pom</packaging>
 
 	<properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -22,7 +25,7 @@
 		<skip.unit.tests>false</skip.unit.tests>
 
 		<!-- Spring -->
-		<spring-boot.version>3.2.2</spring-boot.version>
+		<spring-boot.version>3.2.5</spring-boot.version>
 
 		<!-- Other -->
 		<jetbrains-annotations.version>24.1.0</jetbrains-annotations.version>
@@ -30,6 +33,8 @@
 
 		<!-- Tests -->
 		<wiremock.version>3.4.1</wiremock.version>
+
+        <spring-data-mongodb.version>4.2.5</spring-data-mongodb.version>
 
 		<!-- Plugins -->
 		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -43,6 +48,10 @@
 		<maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
 		<checkstyle.version>10.12.7</checkstyle.version>
 	</properties>
+
+    <modules>
+        <module>monctionary</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -100,7 +109,20 @@
 			<version>${openapi.version}</version>
 		</dependency>
 
-		<!-- Dev Tools -->
+        <!-- MongoDB -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-mongodb -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>${spring-data-mongodb.version}</version>
+        </dependency>
+
+        <!-- Dev Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
