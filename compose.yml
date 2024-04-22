@@ -1,0 +1,49 @@
+services:
+  mongo:
+    ports:
+      - '27017:27017'
+    container_name: mongo
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: wiktionary
+    image: mongo:latest
+    networks:
+      - backend
+    volumes:
+      - ./mongo:/data/db
+      - type: bind
+        source: ./mongo-entrypoint/
+        target: /docker-entrypoint-initdb.d/
+    healthcheck:
+      test: echo 'db.runCommand({find:"wiktionary.user"}).ok' | mongosh --authenticationDatabase admin --host localhost -u admin -p admin admin --quiet | grep -q 1
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  monctionary:
+    container_name: monctionary
+    image: test-monctionary:12
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+    networks:
+      - backend
+    ports:
+      - 8083:8080
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./mongo-entrypoint:/mongo-entrypoint
+
+volumes:
+  mongo: {}
+
+networks:
+  backend: {}
+
