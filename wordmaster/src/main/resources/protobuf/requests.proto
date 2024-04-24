@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package com.madr.external_dictionaries.protobuf;
+
+message WiktionaryRequest {
+    WiktionaryId word = 1;
+    WiktionaryContents contents = 2;
+}
+
+message WiktionaryId {
+    string word = 1;
+    SupportedLanguage word_language = 2;
+    SupportedLanguage wiktionary_language = 3;
+    string part_of_speech = 4;
+}
+
+message WiktionaryContents {
+    bool etymology = 1;
+    bool ipa = 2;
+}
+
+enum SupportedLanguage {
+    EN = 0;
+}
