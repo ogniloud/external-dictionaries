@@ -1,11 +1,10 @@
 package com.madr.external_dictionaries.wordmaster.kafka.properties;
 
-import com.madr.external_dictionaries.mongomodel.model.Word;
-import com.madr.external_dictionaries.protobuf.Requests;
+import com.madr.external_dictionaries.mongomodel.protobuf.Requests;
+import com.madr.external_dictionaries.mongomodel.protobuf.Responses;
 import com.madr.external_dictionaries.wordmaster.kafka.serdes.WiktionaryRequestDeserializer;
 import com.madr.external_dictionaries.wordmaster.kafka.serdes.WiktionaryResponseSerializer;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -72,7 +71,7 @@ public class KafkaBeans {
     public ConcurrentKafkaListenerContainerFactory<String, Requests.WiktionaryRequest>
     kafkaListenerContainerFactory(
         ConsumerFactory<String, Requests.WiktionaryRequest> consumerFactory,
-        KafkaTemplate<String, List<Word>> kafkaTemplate
+        KafkaTemplate<String, Responses.WiktionaryResponse> kafkaTemplate
     ) {
         ConcurrentKafkaListenerContainerFactory<String, Requests.WiktionaryRequest> factory =
             new ConcurrentKafkaListenerContainerFactory<>();
@@ -102,7 +101,7 @@ public class KafkaBeans {
             .build();
     }
 
-    public ProducerFactory<String, List<Word>> producerFactory() {
+    public ProducerFactory<String, Responses.WiktionaryResponse> producerFactory() {
         return new DefaultKafkaProducerFactory<>(Map.of(
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress,
             ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
@@ -111,7 +110,7 @@ public class KafkaBeans {
     }
 
     @Bean
-    public KafkaTemplate<String, List<Word>> kafkaTemplate() {
+    public KafkaTemplate<String, Responses.WiktionaryResponse> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

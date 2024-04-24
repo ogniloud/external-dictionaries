@@ -1,7 +1,7 @@
 package com.madr.external_dictionaries.wordmaster.kafka.serdes;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.madr.external_dictionaries.protobuf.Requests;
+import com.madr.external_dictionaries.mongomodel.protobuf.Requests;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
