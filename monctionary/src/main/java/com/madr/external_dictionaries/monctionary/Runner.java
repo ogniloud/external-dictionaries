@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.madr.external_dictionaries.monctionary.repository.WordRepository;
 import com.madr.external_dictionaries.mongomodel.model.Word;
+import com.madr.external_dictionaries.mongomodel.protobuf.Common;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -20,18 +21,24 @@ public class Runner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        fillDb();
+        fillDb(new File("./mongo-entrypoint/en_to_en.json"), Common.SupportedLanguage.EN, Common.SupportedLanguage.EN);
         terminateApplication();
     }
 
-    private void fillDb() {
-        File enToEnFile = new File("./mongo-entrypoint/en_to_en.json");
-        try (BufferedReader br = new BufferedReader(new FileReader(enToEnFile))) {
+    private void fillDb(
+        File file,
+        Common.SupportedLanguage wiktionaryLanguage,
+        Common.SupportedLanguage wordsLanguage
+    ) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             ObjectMapper objectMapper =
                 new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             while ((line = br.readLine()) != null) {
                 Word word = objectMapper.readValue(line, Word.class);
+                word.trimSounds();
+                word.setWordLanguage(wordsLanguage);
+                word.setWiktionaryLanguage(wiktionaryLanguage);
                 wordRepository.save(word);
             }
         } catch (IOException e) {
