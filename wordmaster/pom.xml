@@ -13,11 +13,8 @@
     <version>${revision}</version>
 
     <properties>
-        <protobuf-maven-plugin.version>1.2.1</protobuf-maven-plugin.version>
-        <protobuf.version>4.26.1</protobuf.version>
         <grpc.version>1.63.0</grpc.version>
         <reactor-grpc.version>1.2.4</reactor-grpc.version>
-        <protoc-gen-grpc-java.version>1.63.0</protoc-gen-grpc-java.version>
     </properties>
 
     <dependencies>
@@ -61,12 +58,6 @@
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${openapi.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${protobuf.version}</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <build>
@@ -79,29 +70,6 @@
         </resources>
 
         <plugins>
-            <plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>compile-custom</goal>
-                        </goals>
-                        <configuration>
-                            <protoSourceRoot>${basedir}/src/main/resources/protobuf</protoSourceRoot>
-                            <protocArtifact>
-                                com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}
-                            </protocArtifact>
-                            <pluginId>proto-java</pluginId>
-                            <pluginArtifact>
-                                io.grpc:protoc-gen-grpc-java:${protoc-gen-grpc-java.version}:exe:${os.detected.classifier}
-                            </pluginArtifact>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -124,13 +92,6 @@
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>kr.motd.maven</groupId>
-                <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.0</version>
-            </extension>
-        </extensions>
     </build>
 
 </project>
