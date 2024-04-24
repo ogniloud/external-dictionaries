@@ -2,8 +2,8 @@ package com.madr.external_dictionaries.monctionary;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.madr.external_dictionaries.monctionary.model.Word;
 import com.madr.external_dictionaries.monctionary.repository.WordRepository;
+import com.madr.external_dictionaries.mongomodel.model.Word;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
