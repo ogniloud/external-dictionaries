@@ -1,4 +1,4 @@
-name: External Dictionaries Build
+name: Monctionary Build
 
 on:
   workflow_dispatch:

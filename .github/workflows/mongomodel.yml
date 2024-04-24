@@ -1,4 +1,4 @@
-name: External Dictionaries Build
+name: Mongomodel Build
 
 on:
   workflow_dispatch:
