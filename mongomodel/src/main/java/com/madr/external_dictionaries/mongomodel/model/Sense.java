@@ -1,4 +1,4 @@
-package com.madr.external_dictionaries.monctionary.model;
+package com.madr.external_dictionaries.mongomodel.model;
 
 import java.util.List;
 import lombok.Getter;

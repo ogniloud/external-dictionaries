@@ -1,4 +1,4 @@
-package com.madr.external_dictionaries.monctionary.model;
+package com.madr.external_dictionaries.mongomodel.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
@@ -21,13 +21,15 @@ public class Word {
     @JsonProperty("etymology_text")
     private String etymology;
     private List<Sense> senses;
+    private List<Sound> sounds;
 
     @PersistenceCreator
-    public Word(String word, String partOfSpeech, String etymology, List<Sense> senses) {
+    public Word(String word, String partOfSpeech, String etymology, String ipa, List<Sense> senses, List<Sound> sounds) {
         this.word = word;
         this.partOfSpeech = partOfSpeech;
         this.etymology = etymology;
         this.senses = senses;
+        this.sounds = sounds;
     }
 
     public Word() {
