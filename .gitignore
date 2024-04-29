@@ -12,6 +12,8 @@ target/
 .settings
 .springBeans
 .sts4-cache
+mongo-entrypoint/en_to_en.json
+mongo
 
 ### IntelliJ IDEA ###
 .idea

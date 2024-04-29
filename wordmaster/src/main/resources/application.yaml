@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: wordmaster
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: user
+      password: pass
+      database: wiktionary
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9093
+    use-queue: true
+    topics:
+      wiktionary-requests:
+        name: wiktionary
+        partitions: 10
+        replicas: 1
+      baked-words:
+        name: baked-words
+        partitions: 20
+        replicas: 1
+      dlq:
+        name: dlq
+        partitions: 10
+        replicas: 1
+
+server:
+  port: 8080

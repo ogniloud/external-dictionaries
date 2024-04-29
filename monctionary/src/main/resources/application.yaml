@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: external-dictionaries
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: user
+      password: pass
+      database: wiktionary
+server:
+  port: 8080

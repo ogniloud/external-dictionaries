@@ -1,11 +1,11 @@
-name: External Dictionaries Build
+name: Mongomodel Build
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
-      - .github/workflows/build.yml
-      - src/**
+      - .github/workflows/mongomodel.yml
+      - mongomodel/**
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
           cache: maven
 
       - name: maven build
-        run: mvn package
+        run: mvn -pl mongomodel -am package
 
       - id: jacoco
         uses: madrapps/jacoco-report@v1.6.1
