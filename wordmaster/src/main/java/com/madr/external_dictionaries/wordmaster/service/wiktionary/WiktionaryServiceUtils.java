@@ -8,6 +8,7 @@ import com.madr.external_dictionaries.mongomodel.protobuf.Common;
 import com.madr.external_dictionaries.mongomodel.protobuf.Requests;
 import com.madr.external_dictionaries.mongomodel.protobuf.Responses;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class WiktionaryServiceUtils {
     private WiktionaryServiceUtils() {
@@ -15,15 +16,19 @@ public class WiktionaryServiceUtils {
     }
 
     public static Responses.WiktionaryResponse formResponse(List<Word> words, Requests.WiktionaryRequest request) {
-        return Responses.WiktionaryResponse
+        var builder = Responses.WiktionaryResponse
             .newBuilder()
-            .setSource(request.getSource())
-            .addAllWords(
+            .setSource(request.getSource());
+        if (request.getContents().getSingle()) {
+            builder.addWords(formWord(words.get(ThreadLocalRandom.current().nextInt(words.size())), request));
+        } else {
+            builder.addAllWords(
                 words.stream()
                     .map(word -> formWord(word, request))
                     .toList()
-            )
-            .build();
+            );
+        }
+        return builder.build();
     }
 
     private static Responses.BakedWiktionaryWord formWord(Word word, Requests.WiktionaryRequest request) {
@@ -40,12 +45,18 @@ public class WiktionaryServiceUtils {
             builder.setContents(formContents(word, contents));
         }
         if (contents.getDefinition() || contents.getExamples()) {
-            builder.addAllSenses(
-                word.getSenses()
-                    .stream()
-                    .map(sense -> formSense(sense, contents))
-                    .toList()
-            );
+            if (contents.getSingle()) {
+                builder.addSenses(
+                    formSense(word.getSenses().get(ThreadLocalRandom.current().nextInt(word.getSenses().size())), contents)
+                );
+            } else {
+                builder.addAllSenses(
+                    word.getSenses()
+                        .stream()
+                        .map(sense -> formSense(sense, contents))
+                        .toList()
+                );
+            }
         }
         return builder.build();
     }
@@ -56,12 +67,18 @@ public class WiktionaryServiceUtils {
     ) {
         var builder = Responses.WordContents.newBuilder();
         if (requestedContents.getIpa() && word.getSounds() != null) {
-            builder.addAllIpa(
-                word.getSounds()
-                    .stream()
-                    .map(WiktionaryServiceUtils::formSound)
-                    .toList()
-            );
+            if (requestedContents.getSingle()) {
+                builder.addIpa(
+                    formSound(word.getSounds().get(ThreadLocalRandom.current().nextInt(word.getSounds().size())))
+                );
+            } else {
+                builder.addAllIpa(
+                    word.getSounds()
+                        .stream()
+                        .map(WiktionaryServiceUtils::formSound)
+                        .toList()
+                );
+            }
         }
         if (requestedContents.getEtymology() && word.getEtymology() != null) {
             builder.setEtymology(word.getEtymology());
