@@ -47,7 +47,10 @@ public class WiktionaryServiceUtils {
         if (contents.getDefinition() || contents.getExamples()) {
             if (contents.getSingle()) {
                 builder.addSenses(
-                    formSense(word.getSenses().get(ThreadLocalRandom.current().nextInt(word.getSenses().size())), contents)
+                    formSense(
+                        word.getSenses().get(ThreadLocalRandom.current().nextInt(word.getSenses().size())),
+                        contents
+                    )
                 );
             } else {
                 builder.addAllSenses(
