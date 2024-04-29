@@ -27,15 +27,12 @@ message Sound {
 
 message WiktionarySense {
     repeated WiktionaryExample examples = 1;
-    repeated Gloss glosses = 2;
+    repeated string glosses = 2;
+    repeated string tags = 3;
 }
 
 message WiktionaryExample {
     string text = 1;
     optional string ref = 2;
     optional string type = 3;
-}
-
-message Gloss {
-    string gloss = 1;
 }

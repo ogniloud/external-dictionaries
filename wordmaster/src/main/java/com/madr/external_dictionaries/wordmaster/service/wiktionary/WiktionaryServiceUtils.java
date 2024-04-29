@@ -84,16 +84,13 @@ public class WiktionaryServiceUtils {
         Requests.RequestedContents requestedContents
     ) {
         var builder = Responses.WiktionarySense.newBuilder();
-        if (requestedContents.getDefinition()) {
+        if (requestedContents.getDefinition() && sense.getGlosses() != null) {
             builder.addAllGlosses(
                 sense.getGlosses()
-                    .stream()
-                    .map(gloss -> Responses.Gloss
-                        .newBuilder()
-                        .setGloss(gloss)
-                        .build())
-                    .toList()
             );
+            if (sense.getTags() != null) {
+                builder.addAllTags(sense.getTags());
+            }
         }
         if (requestedContents.getExamples() && sense.getExamples() != null) {
             builder.addAllExamples(

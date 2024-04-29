@@ -11,4 +11,5 @@ import lombok.ToString;
 public class Sense {
     private List<Example> examples;
     private List<String> glosses;
+    private List<String> tags;
 }
