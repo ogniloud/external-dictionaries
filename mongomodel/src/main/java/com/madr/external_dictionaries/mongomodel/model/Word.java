@@ -25,6 +25,7 @@ public class Word {
     private String etymology;
     private List<Sense> senses;
     private List<Sound> sounds;
+    private List<Form> forms;
     @Indexed
     private Common.SupportedLanguage wiktionaryLanguage;
     @Indexed
