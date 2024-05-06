@@ -12,6 +12,7 @@ import com.madr.external_dictionaries.mongomodel.protobuf.Spanish;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class WiktionaryServiceUtils {
     private WiktionaryServiceUtils() {
         throw new IllegalStateException("Utility class");
@@ -109,7 +110,9 @@ public class WiktionaryServiceUtils {
             .build();
     }
 
-    private static Spanish.SpanishVerbIndicativeInflections formSpanishVerbIndicativeInflections(List<Form> indicative) {
+    private static Spanish.SpanishVerbIndicativeInflections formSpanishVerbIndicativeInflections(
+        List<Form> indicative
+    ) {
         return Spanish.SpanishVerbIndicativeInflections.newBuilder()
             .setPresent(formSpanishVerbPersonInflections(findAllFormsByTag(indicative, "present")))
             .setImperfect(formSpanishVerbPersonInflections(findAllFormsByTag(indicative, "imperfect")))
@@ -119,7 +122,8 @@ public class WiktionaryServiceUtils {
             .build();
     }
 
-    private static Spanish.SpanishVerbSubjunctiveInflections formSpanishVerbSubjunctiveInflections(List<Form> subjunctive) {
+    private static Spanish.SpanishVerbSubjunctiveInflections formSpanishVerbSubjunctiveInflections(
+        List<Form> subjunctive) {
         return Spanish.SpanishVerbSubjunctiveInflections.newBuilder()
             .setPresent(formSpanishVerbPersonInflections(findAllFormsByTag(subjunctive, "present")))
             .setImperfectSe(formSpanishVerbPersonInflections(findAllFormsByTag(subjunctive, "imperfect-se")))
@@ -129,7 +133,8 @@ public class WiktionaryServiceUtils {
             .build();
     }
 
-    private static Spanish.SpanishVerbImperativeInflections formSpanishVerbImperativeInflections(List<Form> imperative) {
+    private static Spanish.SpanishVerbImperativeInflections formSpanishVerbImperativeInflections(
+        List<Form> imperative) {
         return Spanish.SpanishVerbImperativeInflections.newBuilder()
             .setAffirmative(formSpanishVerbPersonInflections(imperative.stream()
                 .filter(form -> !form.getTags().contains("negative")).toList()))
