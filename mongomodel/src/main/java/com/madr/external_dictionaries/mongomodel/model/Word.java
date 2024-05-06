@@ -25,7 +25,9 @@ public class Word {
     private String etymology;
     private List<Sense> senses;
     private List<Sound> sounds;
+    @Indexed
     private Common.SupportedLanguage wiktionaryLanguage;
+    @Indexed
     private Common.SupportedLanguage wordLanguage;
 
     @PersistenceCreator
