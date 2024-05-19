@@ -1,6 +1,34 @@
 spring:
   application:
     name: external-dictionaries
+    dictionaries:
+      - wiktionary-language: EN
+        words-language: EN
+        dictionary: "./mongo-entrypoint/en_to_en.json"
+#      - wiktionary-language: EN
+#        words-language: RU
+#        dictionary: "./mongo-entrypoint/ru_to_en.json"
+#      - wiktionary-language: EN
+#        words-language: ES
+#        dictionary: "./mongo-entrypoint/es_to_en.json"
+#      - wiktionary-language: RU
+#        words-language: EN
+#        dictionary: "./mongo-entrypoint/en_to_ru.json"
+#      - wiktionary-language: RU
+#        words-language: RU
+#        dictionary: "./mongo-entrypoint/ru_to_ru.json"
+#      - wiktionary-language: RU
+#        words-language: ES
+#        dictionary: "./mongo-entrypoint/es_to_ru.json"
+#      - wiktionary-language: ES
+#        words-language: EN
+#        dictionary: "./mongo-entrypoint/en_to_es.json"
+#      - wiktionary-language: ES
+#        words-language: RU
+#        dictionary: "./mongo-entrypoint/ru_to_es.json"
+#      - wiktionary-language: ES
+#        words-language: ES
+#        dictionary: "./mongo-entrypoint/es_to_es.json"
   data:
     mongodb:
       host: localhost
