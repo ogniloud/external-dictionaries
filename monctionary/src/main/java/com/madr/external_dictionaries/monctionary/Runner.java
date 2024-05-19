@@ -18,18 +18,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class Runner implements ApplicationRunner {
     private final WordRepository wordRepository;
+    private final DictionariesConfiguration configuration;
 
     @Override
     public void run(ApplicationArguments args) {
-        fillDb(new File("./mongo-entrypoint/en_to_en.json"), Common.SupportedLanguage.EN, Common.SupportedLanguage.EN);
-        fillDb(new File("./mongo-entrypoint/ru_to_en.json"), Common.SupportedLanguage.EN, Common.SupportedLanguage.RU);
-        fillDb(new File("./mongo-entrypoint/es_to_en.json"), Common.SupportedLanguage.EN, Common.SupportedLanguage.ES);
-        fillDb(new File("./mongo-entrypoint/en_to_ru.json"), Common.SupportedLanguage.RU, Common.SupportedLanguage.EN);
-        fillDb(new File("./mongo-entrypoint/ru_to_ru.json"), Common.SupportedLanguage.RU, Common.SupportedLanguage.RU);
-        fillDb(new File("./mongo-entrypoint/es_to_ru.json"), Common.SupportedLanguage.RU, Common.SupportedLanguage.ES);
-        fillDb(new File("./mongo-entrypoint/en_to_es.json"), Common.SupportedLanguage.ES, Common.SupportedLanguage.EN);
-        fillDb(new File("./mongo-entrypoint/ru_to_es.json"), Common.SupportedLanguage.ES, Common.SupportedLanguage.RU);
-        fillDb(new File("./mongo-entrypoint/es_to_es.json"), Common.SupportedLanguage.ES, Common.SupportedLanguage.ES);
+        if (configuration.getDictionaries() != null) {
+            for (var dictionary : configuration.getDictionaries()) {
+                fillDb(dictionary.dictionary(), dictionary.wiktionaryLanguage(), dictionary.wordsLanguage());
+            }
+        }
         terminateApplication();
     }
 
