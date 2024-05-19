@@ -42,9 +42,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/monctionary"
-          tag-custom: latest
-          tag-semver: |
-            {{raw}}
+          tags: |
+            type=raw,value=latest,enable=true
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
