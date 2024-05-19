@@ -43,13 +43,21 @@ jobs:
         with:
           images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/monctionary"
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/monctionary"
+          tag-custom: latest
+          tag-semver: |
+            {{raw}}
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
           context: monctionary/.
           push: true
-          tags: |
-            type=raw,value=latest,enable=true
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
 
