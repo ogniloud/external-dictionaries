@@ -48,7 +48,8 @@ jobs:
         with:
           context: monctionary/.
           push: true
-          tags: type=raw,value=latest,enable=true
+          tags: |
+            type=raw,value=latest,enable=true
           labels: ${{ steps.meta.outputs.labels }}
 
 
